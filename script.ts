@@ -28,3 +28,22 @@ return {
   comptesCI,                                               // → pour rattacher les jetons (colonne W)
   comptesC                                                 // → pour R5 extraction (comptes C)
 };
+
+
+
+// value1 = réponse de R4 (Protéger Données)
+// value2 = résultat de E3 (contient comptesCI)
+
+const listeJeton = value1?.body?.listeJeton ?? [];
+const comptesCI  = value2?.comptesCI ?? [];
+
+const map = {};
+for (const j of listeJeton) {
+  map[j.valeurDonnee] = j.valeurJeton;   // numéro en clair → jeton
+}
+
+return comptesCI.map((c) => ({
+  numeroCompte:       c.numeroCompte,
+  codeRelationCompte: c.codeRelationCompte,
+  jetonW:             map[c.numeroCompte] ?? null   // colonne W
+}));
