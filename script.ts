@@ -47,3 +47,15 @@ return comptesCI.map((c) => ({
   codeRelationCompte: c.codeRelationCompte,
   jetonW:             map[c.numeroCompte] ?? null   // colonne W
 }));
+
+
+
+
+return {
+  companyId: companyId,
+  pdoeU: pdoe,                                    // colonne U
+  commentaireX: e2?.commentaireX ?? "",           // colonne X
+  personnes: e2?.personnes ?? [],                 // chaque .pdopV = colonne V
+  comptes: comptesW ?? [],                        // chaque .jetonW = colonne W
+  extractions: (extractions ?? []).map((e) => e?.body ?? e)  // extraction Fiserv (colonne à confirmer)
+};
