@@ -1,26 +1,47 @@
-Le fichier confirmation-limite.selector.ts utilise des sélecteurs
-structurels (h1, h4 + p, span.dsd-fw-bold, etc.) parce que temp.html
-n'a pas de data-cy. Corrige ça selon l'étape 4 du CLAUDE.md :
+Aide-moi à rédiger un ticket Jira (préfixe ALISE-) pour créer un test
+Cypress de parcours complet : EDCE – modification de limite, en autonome.
 
-1. Dans fe-alise-angular-librairie, trouve le composant
-   lib-confirmation-limite (template .html) et ajoute des data-cy
-   descriptifs sur : le titre, le sous-titre, l'alerte et son message,
-   chaque ligne de limite, le titre et le message de la prochaine
-   étape, et les éléments en gras à vérifier.
-   Préfixe : confirmation-limite-…
-   N'ajoute que des attributs, ne change aucun texte ni style.
+AVANT de rédiger, analyse le repo et dis-moi ce qui existe déjà :
+- Le service parcours-modification-autonome.service.ts : qu'est-ce qu'il
+  fait déjà ? Est-il utilisé par une feature ?
+- Les page objects existants pour les pages de modification autonome
+  (cypress/support/pages/...) et leurs méthodes de vérification.
+- Les features existantes sous cypress/e2e/edce/ (y compris old/).
+- Les pages du parcours côté librairie
+  (pages/modification/autonome/modification-limite) : liste les étapes
+  dans l'ordre.
+Modèle à suivre : cypress/e2e/adhesion/smoke/parcours-adhesion-carte-
+autonome.feature et ParcoursAdhesionAutonomeService.
 
-2. Vérifie que modification-alert est bien le data-cy de ce composant ;
-   sinon remplace-le par un data-cy dédié.
+Contexte et décisions déjà prises :
+- Le parcours doit tourner en intégré (integre.config.ts) et être intégré
+  à une pipeline quotidienne via un tag (@smoke + un tag de parcours).
+- Happy path uniquement en intégré. Les cas d'erreur technique (CSM en
+  échec) relèvent des tests mockés (WireMock).
+- Chaque page doit être vérifiée avant de passer à la suivante (contenu
+  clé, pas seulement l'URL), en réutilisant les page objects existants.
+  Pas de duplication de scénarios.
+- Si une page d'erreur (page-erreur-*) s'affiche, le test doit échouer
+  avec un message explicite indiquant l'étape, pour distinguer une
+  régression d'un problème d'environnement.
 
-3. Réécris confirmation-limite.selector.ts uniquement avec des data-cy,
-   sur le modèle de confirmation-conversion-sla.selector.ts
-   (supprime la constante page et les sélecteurs structurels).
+Format du ticket :
+1. Énoncé : En tant que…, je veux…, afin de…
+2. Spécifications fonctionnelles :
+   - Contexte
+   - But
+   - Détail : étapes du parcours, vérifications par page, données de
+     test nécessaires, tags
+3. Critères d'acceptation, au format Étant donné / Quand / Alors,
+   vérifiables.
+4. Hors périmètre.
+5. À confirmer par le lead QA : environnement exact (TEST ou QA/STAGING),
+   données de test, emplacement de la pipeline et filtre de tags, sort
+   des tests old/.
 
-4. Pour le gras, cible l'élément par son data-cy et vérifie dans le
-   test sa balise ou son font-weight, pas via un sélecteur :is(...).
-
-5. Mets à jour le page object et le .feature si nécessaire.
-
-Avant de modifier, liste-moi les data-cy que tu proposes
-et les fichiers touchés.
+Règles :
+- Distingue clairement ce que tu as vérifié dans le code de ce que tu
+  supposes. Marque les hypothèses « (à confirmer) ».
+- N'invente pas de nom de fichier, de méthode ou de tag : cite seulement
+  ce qui existe, ou propose un nom en le signalant comme proposition.
+- Rédige en français, prêt à copier dans Jira.
