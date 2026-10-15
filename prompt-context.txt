@@ -1,61 +1,26 @@
-Ce dossier contient 7 projets liés de l'application ALISE :
-fe-alise-angular-librairie, fe-alise-configurations,
-fe-alise-cy-tests, fe-alise-integration, fe-alise-spa-pic,
-fe-alise-wire-mock, fe-alise-wire-mock-cypress.
+Le fichier confirmation-limite.selector.ts utilise des sélecteurs
+structurels (h1, h4 + p, span.dsd-fw-bold, etc.) parce que temp.html
+n'a pas de data-cy. Corrige ça selon l'étape 4 du CLAUDE.md :
 
-Contexte connu :
-- fe-alise-spa-pic : frontend (SPA Angular).
-- fe-alise-angular-librairie : composants partagés.
-- fe-alise-integration : backend d'intégration, qui appelle les CSM.
-- fe-alise-wire-mock : simule fe-alise-integration en DEV, sans
-  mocker les CSM.
-- fe-alise-wire-mock-cypress : mocke tout (integration + CSM)
-  pour l'env TEST.
-- fe-alise-cy-tests : tests Cypress.
-- fe-alise-configurations : configuration des environnements.
+1. Dans fe-alise-angular-librairie, trouve le composant
+   lib-confirmation-limite (template .html) et ajoute des data-cy
+   descriptifs sur : le titre, le sous-titre, l'alerte et son message,
+   chaque ligne de limite, le titre et le message de la prochaine
+   étape, et les éléments en gras à vérifier.
+   Préfixe : confirmation-limite-…
+   N'ajoute que des attributs, ne change aucun texte ni style.
 
-OBJECTIF
-Rédiger des CLAUDE.md qui permettent à un agent de réaliser un
-ticket Jira sans réexplorer les projets et sans sortir du sujet.
+2. Vérifie que modification-alert est bien le data-cy de ce composant ;
+   sinon remplace-le par un data-cy dédié.
 
-ÉTAPE 1 : EXPLORATION
-Explore chaque projet en profondeur : README, package.json,
-configs, fichiers .md existants (dont SKILL.md), structure,
-modules, routes, services, modèles, appels API, mappings
-WireMock, tests existants. Ignore node_modules, dist et les
-fichiers générés.
-Comprends :
-- le domaine métier et son vocabulaire (ex. OBNL, signataire,
-  caution, administrateur, CSM) ;
-- les écrans et parcours utilisateur principaux ;
-- quels endpoints le frontend appelle, et où ils sont mockés
-  en DEV et en TEST ;
-- les patterns de code et de test utilisés.
+3. Réécris confirmation-limite.selector.ts uniquement avec des data-cy,
+   sur le modèle de confirmation-conversion-sla.selector.ts
+   (supprime la constante page et les sélecteurs structurels).
 
-ÉTAPE 2 : CLAUDE.md RACINE (max 200 lignes)
-- Rôle de chaque projet et liens entre eux.
-- Environnements DEV et TEST : quoi lancer, commandes, ports.
-- Glossaire métier.
-- Parcours et écrans principaux, avec les fichiers clés.
-- Section « Traiter un ticket » : comment déterminer les projets
-  touchés, et procédure pour ajouter un test Cypress (projets à
-  lancer, où écrire le test, quand ajouter un mapping WireMock,
-  test existant à prendre comme modèle).
-Montre-le-moi et attends ma validation avant l'étape 3.
+4. Pour le gras, cible l'élément par son data-cy et vérifie dans le
+   test sa balise ou son font-weight, pas via un sélecteur :is(...).
 
-ÉTAPE 3 : CLAUDE.md DE CHAQUE PROJET (max 100 lignes)
-Rôle, structure des dossiers, fichiers clés, commandes,
-conventions, patterns à suivre avec un fichier exemple, pièges.
-Ne répète pas le fichier racine.
+5. Mets à jour le page object et le .feature si nécessaire.
 
-RÈGLES
-1. Écris des faits vérifiés dans le code, avec les chemins de
-   fichiers. N'invente rien : ce qui est incertain va dans une
-   section « À confirmer », avec mes questions à la fin.
-2. Termine chaque fichier par : « Mets à jour ce fichier si tu
-   modifies la structure, les commandes ou les liens entre
-   projets. »
-3. Ces fichiers sont personnels : dans chaque projet, ajoute la
-   ligne « CLAUDE.md » dans .git/info/exclude.
-4. Ne modifie aucun fichier existant et n'exécute aucune
-   commande git add, commit ou push.
+Avant de modifier, liste-moi les data-cy que tu proposes
+et les fichiers touchés.
