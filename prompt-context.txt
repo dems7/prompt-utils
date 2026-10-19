@@ -1,3 +1,8 @@
+Avant d'écrire un nouveau test, cherche dans fe-alise-cy-tests :
+- un test qui atteint déjà la page ou l'étape de consentement de conversion SLA (PM hors Québec ou autre profil) ;
+- un test qui vérifie déjà ces textes, ou qui contient "surety", "suretyship", "solidarily" ou "cautionsolidaire".
+S'il en existe un, propose d'y ajouter les vérifications plutôt que de créer un nouveau test, et signale tout test qui va échouer à cause du nouveau texte.
+
 Contexte
 Je suis AQ et j'écris les tests Cypress du récit ALISE-2388 (Conversion SLA : textes légaux en anglais H-QC corrigés). Le code est fusionné sur master.
 Repos du workspace :
