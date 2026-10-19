@@ -1,1 +1,31 @@
+Contexte
+Je suis AQ et j'écris les tests Cypress du récit ALISE-2388 (Conversion SLA : textes légaux en anglais H-QC corrigés). Le code est fusionné sur master.
+Repos du workspace :
+- fe-alise-cy-tests : projet des tests Cypress. Lis d'abord CLAUDE.md, SKILL.md et README.md et respecte leurs consignes. Tests existants : cypress/e2e/edce/regression/autonome/conversion-sla/ (confirmation, redirection-erreur).
+- fe-alise-angular-librairie : PR #1599, commit 98e4b74, modifie projects/fe-alise-web-components/assets/i18n/lib/en.json, clé "cautionsolidaire-pm-convsla-h-qc-v1" (titre + plusieurs contenu[].texte). Correction : "solidary surety/suretyship/solidarily" → "joint and several guarantee/guarantor".
+- fe-alise-spa-pic : l'application qui affiche la page.
+- fe-alise-wire-mock-cypress : les mocks de données utilisés par les tests.
+Hors périmètre : fe-alise-docs (copie conforme).
+Cible : personne morale (PM) hors Québec, langue anglaise, Visa Desjardins Business Freedom Solutions.
+
+Travail à faire en UNE seule réponse, sans me poser de questions. Si une information manque, fais l'hypothèse la plus probable, indique-la et continue.
+
+1. Changements : `git show 98e4b74` dans fe-alise-angular-librairie (sinon `git log --oneline --grep="ALISE-2388"`). Liste TOUTES les clés de en.json modifiées (ancien → nouveau).
+2. Traçabilité : trouve où la clé est affichée (elle peut être construite dynamiquement : cherche aussi "cautionsolidaire", "convsla"). Donne le composant (fichier + selector) et la route ou l'étape du parcours de conversion SLA dans fe-alise-spa-pic.
+3. Tests existants de conversion-sla : comment ils atteignent leur page (visit, intercepts, mocks WireMock, commandes custom, langue, profil), et les conventions.
+4. Données : existe-t-il un mock WireMock pour une PM hors Québec en conversion SLA ? Sinon, indique le mapping à ajouter et dans quel fichier.
+5. Écris le test dans un nouveau dossier à côté de confirmation/ (ex. consentement/), en suivant les conventions :
+   - charge en.json avec cy.request sur l'URL où la SPA le sert (vérifie-la dans le code). Pas d'import entre repos, pas de copie en fixture ;
+   - compare le titre et chaque texte modifié au texte visible, sans les balises HTML (<b>, <em>) ;
+   - assertions de sécurité : contient "joint and several guarantee", ne contient pas "surety", "suretyship" ni "solidarily" ;
+   - n'utilise que des sélecteurs, routes et intercepts qui existent. S'il manque un data-cy, propose l'ajout au lieu d'inventer.
+
+Format de réponse (concis) :
+A. Textes modifiés (clé : ancien → nouveau, résumé)
+B. Traçabilité (clé → composant → route/étape)
+C. Hypothèses
+D. Données/mock : existant ou à créer
+E. Fichier(s) de test complets + chemins
+F. Commande pour lancer uniquement ce test
+G. Points à valider manuellement avant la PR
 
