@@ -1,1 +1,45 @@
+Racine de la demande
 
+	1.	codeCanalProvenanceInitial : non null, ∈ {PORTAIL_CAISSE, SYNAPSE, CRC}
+	2.	numeroCompteIpay : non null si codeProduitHote = CARTEAFFAIRESLA
+	3.	codePromotionnel : nullable, maxLength 3
+	4.	codeSourceObtentionConsentementInitial : ∈ {SIGNATURE_ELECTRONIQUE, DOCUMENT_PAPIER}
+	5.	codeSystemeDestinationHote : non null, = DFCE
+	6.	entreprise : non null
+	7.	itemsDemandeModificationProduitCredit : non null, ≥ 1 élément
+
+localisationsDemandePartie
+8. Non null, exactement 2 éléments : un COMPLETE_PAR + un OFFERT_PAR
+
+OFFERT_PAR
+9. employe.nomFamille : non null, maxLength 40
+10. employe.prenomIndividu : non null, maxLength 40
+
+COMPLETE_PAR
+11. employe.adresseCourriel.adresseCourriel : non null
+12. employe.nomFamille : non null
+13. employe.prenomIndividu : non null
+14. numerosTelephone[].numeroTelephone (objet) : non null
+15. numerosTelephone[].numeroTelephone.numeroTelephone : non null, regex ^([0-9]{10})$
+16. numerosTelephone[].numeroTelephone.poste : nullable ; si présent, \d{1,10}
+17. transitDesjardins : non null
+18. transitDesjardins.numeroInstitution : non null, 3 chiffres
+19. transitDesjardins.numeroTransit : non null, 5 chiffres
+
+partiesDemande
+20. Non null, ≥ 1 élément
+21. indicateurSignataireConsentant : non null, au moins un à true (règle transverse entre les parties)
+22. individu : non null
+23. individu.codeSousTypeIndividu : non null, = INDIVIDU_MEMBRE
+24. individu.codeSousTypePartie : non null, = INDIVIDU
+25. individu.identifiantIndividuHoteExterne : non null
+26. rolesDemande : non null, ≥ 1 item
+27. rolesDemande[].codeRoleDemandePartie : non null, ∈ {CAUTION, SIGNATAIRE}
+
+preapprobation (nullable ; si présente)
+28. codeSystemeHote : non null, ∈ {DFE, DFEM}
+29. identifiantPreapprobationHote : non null, maxLength 17
+
+statutDemande
+30. Non null
+31. codeTypeStatutDemande : non null, = EN_SAISIE
