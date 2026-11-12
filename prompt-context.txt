@@ -1,1 +1,36 @@
+Légende : 🔴 Anomalie · 🟠 Partiel · 🟡 Ergonomie (pas user-friendly) · 🟢 RAS
 
+1. Page ID_Signataire
+
+Cas 1 — Clic « Confirmer » 🔴 Anomalie
+Le message d'erreur en haut de page ne s'affiche pas quand le champ Choisir signataire est invalide.
+
+Cas 2 — Clic « Confirmer » 🟡 Ergonomie
+La caractéristique est valide et le champ d'ajout du signataire est bien rempli. Le signataire n'est pourtant pas ajouté, et aucun message d'erreur ne s'affiche.
+
+Cas 3 — Clic « Ajouter » 🟠 Partiel
+
+	•	Le message d'erreur en haut de page ne s'affiche pas quand aucun choix n'est fait dans Choisir signataire.
+	•	Il s'affiche quand un signataire est choisi mais qu'aucune case « Applicable » (rôle) n'est cochée.
+
+Cas 4 — Clic « Confirmer » 🟢 RAS
+Le message d'erreur en haut de page s'affiche bien quand Choix signataire est renseigné et la case « Applicable » cochée, mais que l'information sur la caractéristique est invalide.
+
+2. Page ID_Bénéficiaire
+
+	•	Cas 1 — Clic « Confirmer » 🔴 Anomalie : même comportement que le cas 1 de la page Signataire.
+	•	Cas 2 — Clic « Confirmer » 🟡 Ergonomie : même problème que le cas 2 de la page Signataire.
+	•	Cas 3 — Clic « Ajouter » 🟠 Partiel : même comportement que le cas 3 de la page Signataire.
+	•	Cas 5 — Clic « Confirmer » 🔴 Anomalie : le message d'erreur en haut de page ne s'affiche pas. Les messages d'erreur sur les champs invalides (prénom, nom, option « Applicable ») ne s'affichent pas non plus.
+	•	Clic « Ajouter » (champs du bénéficiaire) 🟢 RAS : le message d'erreur en haut de page s'affiche, les champs invalides passent en rouge et leur message d'erreur apparaît.
+✅ Corrigé : quand on choisit un autre bénéficiaire, l'erreur sur le champ Choix signataire ne s'affiche plus.
+
+3. CA3
+
+	•	Validation du prénom et du nom : OK. Le nom ne signalait pas d'erreur au départ, probablement parce qu'on n'avait pas cliqué dans le champ (aucune tentative de saisie).
+	•	Case « Applicable » : 🔴 aucune erreur n'est jamais signalée.
+
+4. Autres pages
+
+	•	Bene_RENS_PERSO (renseignements du bénéficiaire) : 🟢 OK, RAS
+	•	Bene_ADRESSE : 🟢 OK, RAS
